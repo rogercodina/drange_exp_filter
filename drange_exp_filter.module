@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @file
+ * Views custom exposed filter main.
+ * http://drupal.stackexchange.com/questions/26376/where-can-i-learn-about-how-to-create-a-custom-exposed-filter-for-views-3-and-d7
+ */
+
+/**
+ * Implements hook_views_api().
+ */
+function drange_exp_filter_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'drange_exp_filter') . '/inc',
+  );
+}
+
+/**
+ * Implements hook_views_data().
+ */
+function drange_exp_filter_views_data() {
+  $data = array();
+
+  // Year and month.
+  
+  $data['views']['months_sapi'] = array(
+	'group' => t('Custom'),
+    'title' => t('Date range for standart and search api views (year and month).'),
+    'help' => t('Filters by year and month.'),
+    'filter' => array(
+      'path' => drupal_get_path('module', 'drange_exp_filter') . '/inc',
+      'handler' => 'drange_exp_filter_handler_filter_months_sapi',
+    )
+  );
+
+  // Years.
+
+  $data['views']['years_sapi'] = array(
+	'group' => t('Custom'),
+    'title' => t('Date range for standart and search api views (year).'),
+    'help' => t('Filters by year.'),
+    'filter' => array(
+      'path' => drupal_get_path('module', 'drange_exp_filter') . '/inc',
+      'handler' => 'drange_exp_filter_handler_filter_years_sapi',
+    )
+  );
+
+  return $data;
+}
