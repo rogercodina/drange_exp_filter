@@ -64,28 +64,12 @@ function drange_exp_filter_views_query_alter(&$view, &$query) {
   if (!empty($view->exposed_raw_input['years'])) {
     $years = $view->exposed_raw_input['years'];
 
-    $yhash = array( -2 => date('Y') - 2,
-      -1 => date('Y') - 1,
-      0 => date('Y'),
-      1 => date('Y') + 1,
-      2 => date('Y') + 2,
-    );
-
-    $hashIni = array(
-      $yhash[-2] => date('Ymd', strtotime('first day of January ' . $yhash[-2] )),
-      $yhash[-1] => date('Ymd', strtotime('first day of January ' . $yhash[-1] )),
-      $yhash[0] => date('Ymd', strtotime('first day of January ' . $yhash[0] )),
-      $yhash[1] => date('Ymd', strtotime('first day of January ' . $yhash[1] )),
-      $yhash[2] => date('Ymd', strtotime('first day of January ' . $yhash[2] )),
-    );
-    
-    $hashFin = array(      
-      $yhash[-2] => date('Ymd', strtotime('last day of December ' . $yhash[-2] )),
-      $yhash[-1] => date('Ymd', strtotime('last day of December ' . $yhash[-1] )),
-      $yhash[0] => date('Ymd', strtotime('last day of December ' . $yhash[0] )),
-      $yhash[1] => date('Ymd', strtotime('last day of December ' . $yhash[1] )),
-      $yhash[2] => date('Ymd', strtotime('last day of December ' . $yhash[2] )),
-    );
+    $hashIni = array();
+    $hashFin = array();
+    for ($i = date('Y') - 25; $i < date('Y') + 2; $i++ ) {
+	  $hashIni[$i] = date('Ymd', strtotime('first day of January ' . $i ));
+	  $hashFin[$i] = date('Ymd', strtotime('last day of December ' . $i ));
+    }
     
     $ini = $hashIni[$years];
     $fin = $hashFin[$years];
@@ -212,28 +196,12 @@ function drange_exp_filter_search_api_views_query_alter(&$view, &$query) {
   if (!empty($view->exposed_raw_input['years'])) {
     $years = $view->exposed_raw_input['years'];
 
-    $yhash = array( -2 => date('Y') - 2,
-      -1 => date('Y') - 1,
-      0 => date('Y'),
-      1 => date('Y') + 1,
-      2 => date('Y') + 2,
-    );
-
-    $hashIni = array(
-      $yhash[-2] => strtotime('first day of January ' . $yhash[-2] ),
-      $yhash[-1] => strtotime('first day of January ' . $yhash[-1] ),
-      $yhash[0] => strtotime('first day of January ' . $yhash[0] ),
-      $yhash[1] => strtotime('first day of January ' . $yhash[1] ),
-      $yhash[2] => strtotime('first day of January ' . $yhash[2] ),
-    );
-    
-    $hashFin = array(      
-      $yhash[-2] => strtotime('last day of December ' . $yhash[-2] ),
-      $yhash[-1] => strtotime('last day of December ' . $yhash[-1] ),
-      $yhash[0] => strtotime('last day of December ' . $yhash[0] ),
-      $yhash[1] => strtotime('last day of December ' . $yhash[1] ),
-      $yhash[2] => strtotime('last day of December ' . $yhash[2] ),
-    );
+    $hashIni = array();
+    $hashFin = array();
+    for ($i = date('Y') - 25; $i < date('Y') + 2; $i++ ) {
+	  $hashIni[$i] = strtotime('first day of January ' . $i );
+	  $hashFin[$i] = strtotime('last day of December ' . $i );
+    }
     
     $ini = $hashIni[$years];
     $fin = $hashFin[$years];
