@@ -6,4 +6,3 @@ package = Views
 dependencies[] = views
 
 files[] = inc/drange_exp_filter_handler_filter_months_sapi.inc
-files[] = inc/drange_exp_filter_handler_filter_years_sapi.inc
